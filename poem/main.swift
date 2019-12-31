@@ -4,9 +4,8 @@
 //
 
 import Foundation
-import SwiftSoup
 
-let requestURL = URL(string: "https://w0.poemhunter.com/members/random-poem/")!
+let requestURL = URL(string: "https://m.poemhunter.com/1.0/poemList?listType=1")!
 
 func getRandomPoemHTML() {
 
@@ -26,26 +25,12 @@ func getRandomPoemHTML() {
 }
 
 func parseHTML(data: Data) {
-	guard let htmlString = String(data: data, encoding: .utf8) else { return }
 	do {
-		let document = try parse(htmlString)
-		let poem = try document.select("div.poem")
-		let title = try poem.select("h2").text()
-		let text = try poem.select("p").html().replacingOccurrences(of: "<br>", with: "\n")
-		let poet = try poem.select("div.poet").text()
-		print("""
-			\(title)
-			by: \(poet)
-			---
-
-			\(text)
-
-			""")
+		let poemResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
+		print(poemResponse.response.items[0].content)
 
 		CFRunLoopStop(CFRunLoopGetCurrent())
 		exit(0)
-	} catch Exception.Error(let type, let message) {
-		print(message)
 	} catch {
 		print("error")
 	}

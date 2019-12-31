@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F239175E23B25F8E009C4663 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F239175D23B25F8E009C4663 /* main.swift */; };
-		F2C8C26123B292C40062AE02 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = F2C8C26023B292C40062AE02 /* SwiftSoup */; };
+		F2D6231B23B2B30A00D1532D /* Poem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6231A23B2B30A00D1532D /* Poem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +26,7 @@
 /* Begin PBXFileReference section */
 		F239175A23B25F8E009C4663 /* poem */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = poem; sourceTree = BUILT_PRODUCTS_DIR; };
 		F239175D23B25F8E009C4663 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F2D6231A23B2B30A00D1532D /* Poem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +34,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2C8C26123B292C40062AE02 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				F239175D23B25F8E009C4663 /* main.swift */,
+				F2D6231A23B2B30A00D1532D /* Poem.swift */,
 			);
 			path = poem;
 			sourceTree = "<group>";
@@ -81,7 +82,6 @@
 			);
 			name = poem;
 			packageProductDependencies = (
-				F2C8C26023B292C40062AE02 /* SwiftSoup */,
 			);
 			productName = poem;
 			productReference = F239175A23B25F8E009C4663 /* poem */;
@@ -112,7 +112,6 @@
 			);
 			mainGroup = F239175123B25F8E009C4663;
 			packageReferences = (
-				F2C8C25F23B292C40062AE02 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = F239175B23B25F8E009C4663 /* Products */;
 			projectDirPath = "";
@@ -128,6 +127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2D6231B23B2B30A00D1532D /* Poem.swift in Sources */,
 				F239175E23B25F8E009C4663 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,25 +294,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		F2C8C25F23B292C40062AE02 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:scinfu/SwiftSoup.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F2C8C26023B292C40062AE02 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F2C8C25F23B292C40062AE02 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F239175223B25F8E009C4663 /* Project object */;
 }
