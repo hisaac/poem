@@ -7,6 +7,7 @@ import Foundation
 
 struct Poem: Decodable {
 	let title: String
+	let poem_url: URL
 	let poetName: String
 	let content: String
 	let rate: Int

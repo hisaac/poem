@@ -27,7 +27,18 @@ func getRandomPoemHTML() {
 func parseHTML(data: Data) {
 	do {
 		let poemResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
-		print(poemResponse.response.items[0].content)
+		let poem = poemResponse.response.items[0]
+
+		print("""
+			\(poem.title)
+			by: \(poem.poetName)
+			url: \(poem.poem_url)
+			---
+
+			\(poem.content)
+			---
+
+			""")
 
 		CFRunLoopStop(CFRunLoopGetCurrent())
 		exit(0)
