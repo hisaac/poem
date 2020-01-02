@@ -7,20 +7,38 @@ import Foundation
 
 struct Poem: Decodable {
 	let title: String
-	let poem_url: URL
+	let poemURL: URL
 	let poetName: String
 	let content: String
 	let rate: Int
-	let poetId: Int
+	let poetID: Int
 	let date: String
 	let poetPicture: URL
 	let id: Int
 	let about: [String]
+
+	enum CodingKeys: String, CodingKey {
+		case title
+		case poemURL = "poem_url"
+		case poetName
+		case content
+		case rate
+		case poetID = "poetId"
+		case date
+		case poetPicture
+		case id
+		case about
+	}
 }
 
 struct PoemResponse: Decodable {
-	let items: [Poem]
+	let poems: [Poem]
 	let title: String
+
+	enum CodingKeys: String, CodingKey {
+		case poems = "items"
+		case title
+	}
 }
 
 struct PoemAPIResponse: Decodable {
@@ -29,7 +47,6 @@ struct PoemAPIResponse: Decodable {
 }
 
 /*
-
 Example response:
 
 {
@@ -60,6 +77,5 @@ Example response:
 	},
 	"success": true
 }
-
 
 */

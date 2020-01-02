@@ -27,12 +27,12 @@ func getRandomPoemHTML() {
 func parseHTML(data: Data) {
 	do {
 		let poemResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
-		let poem = poemResponse.response.items[0]
+        let poem = poemResponse.response.poems.first!
 
 		print("""
 			\(poem.title)
 			by: \(poem.poetName)
-			url: \(poem.poem_url)
+			url: \(poem.poemURL)
 			---
 
 			\(poem.content)
