@@ -12,16 +12,21 @@ let stderr = FileHandle.standardError
 let arguments = CommandLine.arguments
 
 func getRandomPoemHTML() {
-
 	let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
 		if let error = error {
 			writeToStdErr(error.localizedDescription)
 			exit(EXIT_FAILURE)
 		}
 
-		guard let response = response else { return }
+		if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+			writeToStdErr("Server request was unsuccessful. Server responded with error code:", response.statusCode)
+			exit(EXIT_FAILURE)
+		}
 
-		guard let data = data else { return }
+		guard let data = data else {
+			writeToStdErr("Unable to decode data")
+			exit(EXIT_FAILURE)
+		}
 
 		parseHTML(data: data)
 	}
