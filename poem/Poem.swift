@@ -9,7 +9,7 @@ struct Poem: Decodable {
 	let title: String
 	let poemURL: URL
 	let poetName: String
-	let content: String
+	let body: String
 	let rate: Int
 	let poetID: Int
 	let date: String
@@ -21,13 +21,26 @@ struct Poem: Decodable {
 		case title
 		case poemURL = "poem_url"
 		case poetName
-		case content
+		case body = "content"
 		case rate
 		case poetID = "poetId"
 		case date
 		case poetPicture
 		case id
 		case about
+	}
+
+	var formattedOutput: String {
+		"""
+		\(title)
+		by: \(poetName)
+		url: \(poemURL)
+		---
+
+		\(body)
+		---
+
+		"""
 	}
 }
 
@@ -44,6 +57,10 @@ struct PoemResponse: Decodable {
 struct PoemAPIResponse: Decodable {
 	let response: PoemResponse
 	let success: Bool
+
+	var poems: [Poem] {
+		response.poems
+	}
 }
 
 /*

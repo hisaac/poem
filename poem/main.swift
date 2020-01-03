@@ -26,24 +26,21 @@ func getRandomPoemHTML() {
 
 func parseHTML(data: Data) {
 	do {
-		let poemResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
-        let poem = poemResponse.response.poems.first!
+		let poemAPIResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
 
-		print("""
-			\(poem.title)
-			by: \(poem.poetName)
-			url: \(poem.poemURL)
-			---
-
-			\(poem.content)
-			---
-
-			""")
+		if let poem = poemAPIResponse.poems.first {
+			print(poem.formattedOutput)
+		} else {
+			print("Error retrieving poem")
+		}
 
 		CFRunLoopStop(CFRunLoopGetCurrent())
 		exit(0)
 	} catch {
-		print("error")
+		print("Error retrieving poem:", error.localizedDescription)
+		print("Raw JSON:", String(data: data, encoding: .utf8) ?? "error converting JSON to string")
+		CFRunLoopStop(CFRunLoopGetCurrent())
+		exit(1)
 	}
 }
 
