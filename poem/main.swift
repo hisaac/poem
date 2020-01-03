@@ -7,11 +7,16 @@ import Foundation
 
 let requestURL = URL(string: "https://m.poemhunter.com/1.0/poemList?listType=1")!
 
+let stdout = FileHandle.standardOutput
+let stderr = FileHandle.standardError
+let arguments = CommandLine.arguments
+
 func getRandomPoemHTML() {
 
 	let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
 		if let error = error {
-			print(error)
+			writeToStdErr(error.localizedDescription)
+			exit(EXIT_FAILURE)
 		}
 
 		guard let response = response else { return }
@@ -29,22 +34,39 @@ func parseHTML(data: Data) {
 		let poemAPIResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
 
 		if let poem = poemAPIResponse.poems.first {
-			FileHandle.standardOutput.write(Data(poem.formattedOutput.utf8))
+			writeToStdOut(poem.formattedOutput)
 		} else {
-			FileHandle.standardError.write(Data("Error retrieving poem".utf8))
+			writeToStdErr("Error retrieving poem")
 		}
 
 		CFRunLoopStop(CFRunLoopGetCurrent())
-		exit(Int32(Process.TerminationReason.exit.rawValue))
+		exit(EXIT_SUCCESS)
 	} catch {
-		let errorDescription = "Error retrieving poem: \(error.localizedDescription)\n"
-		FileHandle.standardError.write(Data(errorDescription.utf8))
-
-		FileHandle.standardError.write(Data("Raw data received:\n".utf8))
-		FileHandle.standardError.write(data)
+		writeToStdErr("Error retrieving poem:", error.localizedDescription)
+		writeToStdErr("Raw data received:", data)
 
 		CFRunLoopStop(CFRunLoopGetCurrent())
-		exit(Int32(Process.TerminationReason.uncaughtSignal.rawValue))
+		exit(EXIT_FAILURE)
+	}
+}
+
+func writeToStdOut(_ contentToWrite: Any...) {
+	for content in contentToWrite {
+		if content is String {
+			FileHandle.standardOutput.write(Data("\(content)\n".utf8))
+		} else if let data = content as? Data {
+			FileHandle.standardOutput.write(data)
+		}
+	}
+}
+
+func writeToStdErr(_ contentToWrite: Any...) {
+	for content in contentToWrite {
+		if content is String {
+			FileHandle.standardError.write(Data("\(content)\n".utf8))
+		} else if let data = content as? Data {
+			FileHandle.standardError.write(data)
+		}
 	}
 }
 
