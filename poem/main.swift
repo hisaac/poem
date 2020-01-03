@@ -29,18 +29,22 @@ func parseHTML(data: Data) {
 		let poemAPIResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
 
 		if let poem = poemAPIResponse.poems.first {
-			print(poem.formattedOutput)
+			FileHandle.standardOutput.write(Data(poem.formattedOutput.utf8))
 		} else {
-			print("Error retrieving poem")
+			FileHandle.standardError.write(Data("Error retrieving poem".utf8))
 		}
 
 		CFRunLoopStop(CFRunLoopGetCurrent())
-		exit(0)
+		exit(Int32(Process.TerminationReason.exit.rawValue))
 	} catch {
-		print("Error retrieving poem:", error.localizedDescription)
-		print("Raw JSON:", String(data: data, encoding: .utf8) ?? "error converting JSON to string")
+		let errorDescription = "Error retrieving poem: \(error.localizedDescription)\n"
+		FileHandle.standardError.write(Data(errorDescription.utf8))
+
+		FileHandle.standardError.write(Data("Raw data received:\n".utf8))
+		FileHandle.standardError.write(data)
+
 		CFRunLoopStop(CFRunLoopGetCurrent())
-		exit(1)
+		exit(Int32(Process.TerminationReason.uncaughtSignal.rawValue))
 	}
 }
 
