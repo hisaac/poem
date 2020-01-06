@@ -10,12 +10,12 @@ struct Poem: Decodable {
 	let poemURL: URL
 	let poetName: String
 	let body: String
-	let rate: Int
-	let poetID: Int
-	let date: String
-	let poetPicture: URL
-	let id: Int
-	let about: [String]
+	let rate: Int?
+	let poetID: Int?
+	let date: String?
+	let poetPicture: URL?
+	let id: Int?
+	let about: [String]?
 
 	enum CodingKeys: String, CodingKey {
 		case title
@@ -42,15 +42,37 @@ struct Poem: Decodable {
 
 		"""
 	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		title = try container.decode(String.self, forKey: .title)
+		poemURL = try container.decode(URL.self, forKey: .poemURL)
+		poetName = try container.decode(String.self, forKey: .poetName)
+		body = try container.decode(String.self, forKey: .body)
+		rate = try container.decode(Int?.self, forKey: .rate)
+		poetID = try container.decode(Int?.self, forKey: .poetID)
+		date = try container.decode(String?.self, forKey: .date)
+		poetPicture = try container.decode(URL?.self, forKey: .poetPicture)
+		id = try container.decode(Int?.self, forKey: .id)
+		about = try container.decode([String]?.self, forKey: .about)
+	}
 }
 
 struct PoemResponse: Decodable {
 	let poems: [Poem]
-	let title: String
+	let title: String?
 
 	enum CodingKeys: String, CodingKey {
 		case poems = "items"
 		case title
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		poems = try container.decode([Poem].self, forKey: .poems)
+		title = try container.decode(String?.self, forKey: .title)
 	}
 }
 
@@ -60,6 +82,18 @@ struct PoemAPIResponse: Decodable {
 
 	var poems: [Poem] {
 		response.poems
+	}
+
+	enum CodingKeys: String, CodingKey {
+		case response
+		case success
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		response = try container.decode(PoemResponse.self, forKey: .response)
+		success = try container.decode(Bool.self, forKey: .success)
 	}
 }
 
