@@ -36,9 +36,9 @@ func getRandomPoemHTML() {
 
 func parseHTML(data: Data) {
 	do {
-		let poemAPIResponse = try JSONDecoder().decode(PoemAPIResponse.self, from: data)
+		let poemResponse = try JSONDecoder().decode(PoemResponse.self, from: data)
 
-		if let poem = poemAPIResponse.poems.first {
+		if let poem = poemResponse.poems.first {
 			writeToStdOut(poem.formattedOutput)
 		} else {
 			writeToStdErr("Error retrieving poem")

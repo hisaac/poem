@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F239175E23B25F8E009C4663 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F239175D23B25F8E009C4663 /* main.swift */; };
+		F2B3532323CBBC8700D2ACBD /* PoemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B3532223CBBC8700D2ACBD /* PoemResponse.swift */; };
 		F2D6231B23B2B30A00D1532D /* Poem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6231A23B2B30A00D1532D /* Poem.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		F239175A23B25F8E009C4663 /* poem */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = poem; sourceTree = BUILT_PRODUCTS_DIR; };
 		F239175D23B25F8E009C4663 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; usesTabs = 1; };
+		F2B3532223CBBC8700D2ACBD /* PoemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoemResponse.swift; sourceTree = "<group>"; usesTabs = 1; };
 		F2D6231A23B2B30A00D1532D /* Poem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poem.swift; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 			children = (
 				F239175D23B25F8E009C4663 /* main.swift */,
 				F2D6231A23B2B30A00D1532D /* Poem.swift */,
+				F2B3532223CBBC8700D2ACBD /* PoemResponse.swift */,
 			);
 			path = poem;
 			sourceTree = "<group>";
@@ -128,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D6231B23B2B30A00D1532D /* Poem.swift in Sources */,
+				F2B3532323CBBC8700D2ACBD /* PoemResponse.swift in Sources */,
 				F239175E23B25F8E009C4663 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
